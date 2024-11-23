@@ -1,6 +1,6 @@
 [gd_scene load_steps=35 format=3 uid="uid://b12b320ht0wj2"]
 
-[ext_resource type="Script" path="res://maze_generator.gd" id="1_0auvj"]
+[ext_resource type="Script" path="res://maze_generator/maze_generator.gd" id="1_0auvj"]
 [ext_resource type="Texture2D" uid="uid://c0dlsbqopxxed" path="res://tiles/0.png" id="2_o1cfm"]
 [ext_resource type="Texture2D" uid="uid://bm5gh7n384tpa" path="res://tiles/1.png" id="3_xhwiq"]
 [ext_resource type="Texture2D" uid="uid://de12v4yqr0vo" path="res://tiles/10.png" id="4_j3gjp"]

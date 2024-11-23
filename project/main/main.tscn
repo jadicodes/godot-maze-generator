@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cf80drt16vwsi"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_7y05c"]
-[ext_resource type="PackedScene" uid="uid://b12b320ht0wj2" path="res://maze_generator.tscn" id="1_143ne"]
+[ext_resource type="PackedScene" uid="uid://b12b320ht0wj2" path="res://maze_generator/maze_generator.tscn" id="1_143ne"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66881"]
 bg_color = Color(0.20871, 0.20871, 0.20871, 1)
