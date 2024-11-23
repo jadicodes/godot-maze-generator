@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf80drt16vwsi"]
+
+[ext_resource type="Script" path="res://main/main.gd" id="1_7y05c"]
+[ext_resource type="PackedScene" uid="uid://b12b320ht0wj2" path="res://maze_generator.tscn" id="1_143ne"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66881"]
+bg_color = Color(0.20871, 0.20871, 0.20871, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7y05c")
+
+[node name="MazeGenerator" parent="." instance=ExtResource("1_143ne")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 186.0
+offset_right = 192.0
+offset_bottom = 208.0
+color = Color(0, 0, 0, 1)
+
+[node name="RefreshButton" type="Button" parent="ColorRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 75.0
+offset_top = 1.0
+offset_right = 125.0
+offset_bottom = 21.0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxFlat_66881")
+text = "Refresh"
+
+[connection signal="maze_completed" from="MazeGenerator" to="." method="_on_maze_generator_maze_completed"]
+[connection signal="pressed" from="ColorRect/RefreshButton" to="." method="_on_refresh_button_pressed"]
