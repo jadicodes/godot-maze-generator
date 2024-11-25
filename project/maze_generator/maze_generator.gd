@@ -58,7 +58,7 @@ func make_maze():
 			var next = neighbors[randi() % neighbors.size()]
 			# Add current tile to stack so that it can be backtracked later
 			stack.append(current)
-			# Calculate the direction vector from cuurent cell to the next cell
+			# Calculate the direction vector from current cell to the next cell
 			var dir = next - current
 			var current_walls = Map.get_cell_source_id(current) & ~cell_walls[dir]
 			var next_walls = Map.get_cell_source_id(next) & ~cell_walls[-dir]
@@ -68,7 +68,7 @@ func make_maze():
 			unvisited.erase(current)
 
 			await get_tree().process_frame
-			await get_tree().process_frame
+
 		elif stack:
 			current = stack.pop_back()
 	emit_signal("maze_completed")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf80drt16vwsi"]
+[gd_scene load_steps=5 format=3 uid="uid://cf80drt16vwsi"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_7y05c"]
 [ext_resource type="PackedScene" uid="uid://b12b320ht0wj2" path="res://maze_generator/maze_generator.tscn" id="1_143ne"]
+[ext_resource type="PackedScene" uid="uid://bf133h222ymco" path="res://player/player.tscn" id="3_vlos6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66881"]
 bg_color = Color(0.20871, 0.20871, 0.20871, 1)
@@ -17,24 +18,30 @@ grow_vertical = 2
 script = ExtResource("1_7y05c")
 
 [node name="MazeGenerator" parent="." instance=ExtResource("1_143ne")]
+map_width = 30
+map_height = 24
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BlackRectangle" type="ColorRect" parent="."]
 layout_mode = 0
-offset_top = 186.0
-offset_right = 192.0
-offset_bottom = 208.0
+offset_left = -3.0
+offset_top = 384.0
+offset_right = 482.0
+offset_bottom = 420.0
 color = Color(0, 0, 0, 1)
 
-[node name="RefreshButton" type="Button" parent="ColorRect"]
+[node name="RefreshButton" type="Button" parent="BlackRectangle"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 75.0
-offset_top = 1.0
-offset_right = 125.0
-offset_bottom = 21.0
+offset_left = 215.0
+offset_top = 2.0
+offset_right = 283.0
+offset_bottom = 33.0
 theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxFlat_66881")
 text = "Refresh"
 
+[node name="Player" parent="." instance=ExtResource("3_vlos6")]
+position = Vector2(7, 7)
+
 [connection signal="maze_completed" from="MazeGenerator" to="." method="_on_maze_generator_maze_completed"]
-[connection signal="pressed" from="ColorRect/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="BlackRectangle/RefreshButton" to="." method="_on_refresh_button_pressed"]
