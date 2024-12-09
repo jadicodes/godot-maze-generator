@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf80drt16vwsi"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_7y05c"]
-[ext_resource type="PackedScene" uid="uid://b12b320ht0wj2" path="res://maze_generator/maze_generator.tscn" id="1_143ne"]
 [ext_resource type="PackedScene" uid="uid://bf133h222ymco" path="res://player/player.tscn" id="3_vlos6"]
+[ext_resource type="PackedScene" uid="uid://kdcivgo5qfn1" path="res://maze_generator/wide_maze_generator.tscn" id="4_23ge3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66881"]
 bg_color = Color(0.20871, 0.20871, 0.20871, 1)
@@ -16,10 +16,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7y05c")
-
-[node name="MazeGenerator" parent="." instance=ExtResource("1_143ne")]
-map_width = 30
-map_height = 24
 
 [node name="BlackRectangle" type="ColorRect" parent="."]
 layout_mode = 0
@@ -40,8 +36,12 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxFlat_66881")
 text = "Refresh"
 
-[node name="Player" parent="." instance=ExtResource("3_vlos6")]
-position = Vector2(7, 7)
+[node name="WideMazeGenerator" parent="." instance=ExtResource("4_23ge3")]
+tile_size = 16
+map_height = 24
 
-[connection signal="maze_completed" from="MazeGenerator" to="." method="_on_maze_generator_maze_completed"]
+[node name="Player" parent="." instance=ExtResource("3_vlos6")]
+position = Vector2(13, 11)
+
 [connection signal="pressed" from="BlackRectangle/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="maze_completed" from="WideMazeGenerator" to="." method="_on_wide_maze_generator_maze_completed"]

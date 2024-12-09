@@ -1,19 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf133h222ymco"]
+[gd_scene load_steps=5 format=3 uid="uid://bf133h222ymco"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_41rkr"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_x1c4s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4iri5"]
-size = Vector2(4, 4)
+size = Vector2(6.5, 6.5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3qtmh"]
+b = Vector2(0, 24)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_41rkr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1.78814e-07, -1.78814e-07)
-scale = Vector2(8, 8)
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(6.5, 6.5)
 texture = SubResource("PlaceholderTexture2D_x1c4s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4iri5")
+
+[node name="Grabber" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grabber"]
+shape = SubResource("SegmentShape2D_3qtmh")
+
+[connection signal="body_entered" from="Grabber" to="." method="_on_grabber_body_entered"]

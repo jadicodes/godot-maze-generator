@@ -7,7 +7,10 @@ const E = 2
 const S = 4
 const W = 8
 
-var cell_walls = {Vector2(1, 0): E, Vector2(-1, 0): W, Vector2(0, 1): S, Vector2(0, -1): N}
+var cell_walls = {Vector2(0, -2): N, Vector2(2, 0): E,
+				  Vector2(0, 2): S, Vector2(-2, 0): W}
+var empty_tiles: Array[Vector2]
+
 
 @export var tile_size: int # tile size (in pixels)
 @export var map_width: int  # width of map (in tiles)
@@ -41,8 +44,11 @@ func make_maze():
 	# Set that tile to tile 15
 	for x in range(map_width):
 		for y in range(map_height):
-			unvisited.append(Vector2(x, y))
 			Map.set_cell(Vector2(x, y), N|E|S|W, Vector2(0,0))
+	for x in range(0, map_width, 2):
+		for y in range(0, map_height, 2):
+			unvisited.append(Vector2(x, y))
+
 
 	# Set start tile and erase start tile from unvisited array
 	var current: Vector2 = Vector2(0, 0)
@@ -64,14 +70,28 @@ func make_maze():
 			var next_walls = Map.get_cell_source_id(next) & ~cell_walls[-dir]
 			Map.set_cell(current, current_walls, Vector2(0, 0))
 			Map.set_cell(next, next_walls, Vector2(0, 0))
+			if dir.x != 0:
+				Map.set_cell(current + dir/2, 5, Vector2(0, 0))  # vertical road
+			else:
+				Map.set_cell(current + dir/2, 10, Vector2(0, 0))  # horizontal road
 			current = next
 			unvisited.erase(current)
 
-			await get_tree().process_frame
-			await get_tree().process_frame
-			await get_tree().process_frame
 			await get_tree().process_frame
 
 		elif stack:
 			current = stack.pop_back()
 	emit_signal("maze_completed")
+
+
+func _on_maze_completed() -> void:
+	var current_tile: int
+	for x in range(map_width):
+		for y in range(map_height):
+			current_tile = Map.get_cell_source_id(Vector2(x, y))
+			if current_tile == 15:
+				empty_tiles.append(Vector2(x, y))
+
+
+func get_empty_tiles():
+	return empty_tiles
